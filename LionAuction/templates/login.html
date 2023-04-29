@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!--Tab Title-->
+    <title>Login - LionAuction</title>
+</head>
+<div class="container" align="center">
+    <!--Card contains header information-->
+    <div class="card">
+        <div class="card-body" align="center" style="background-color: rgb(240, 241, 241);">
+            <h1 style="color: blue;"><b>LionAuction</b></h1>
+            <p>Login Page In Progress</p>
+        </div>
+    </div>
+</div>
+
+<!--Body tag-->
+<body>
+    <!--<button onclick="document.getElementById('signin').style.display='block'" style="width:auto;">Login</button>-->
+    <div class="container" align="center">
+        <div class="card" style="background-color: rgb(255, 255, 255); margin: 5px auto;border: 1px solid #888; width: 80%;">
+            <div id="signin">
+                <form action="/" method="post">           
+                  <div class="container">
+                    <select name="user" id="user">
+                        <option value="Bidders">Bidder</option>
+                        <option value="Sellers">Seller</option>
+                        <option value="HelpDesk">HelpDesk Staff</option>
+                    </select>
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+              
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+
+                    <button type="submit">Login</button>
+                  </div>
+                  <div class="container" style="background-color:#f1f1f1">
+                    <!--<button type="button" onclick="document.getElementById('signin').style.display='none'" class="cancelbtn">Cancel</button>-->
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                    <span class="psw">Create a new <a href="#">account?</a></span>
+                  </div>
+                </form>
+                {% if error %}
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>{{ error }}</strong>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

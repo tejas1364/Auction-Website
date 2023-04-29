@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+{% if role == "Bidders" %}
+{{ item[0]["auction_title"] }} 
+{% elif role == "Sellers" %}
+{{ item[3] }} 
+{% endif %}
+{% endblock %}
+
+{% if role == "Sellers" %}
+{% block menu %}
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/listings">View Your Listings</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/add_listing">Add Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/delete_listing">Delete Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>Welcome, {{ name }}</b></a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/account">Account Settings</a>
+        <a class="dropdown-item" href="#">Contact Support</a>
+        <a class="dropdown-item" href="/">Logout</a>
+    </div>
+</li>
+{% endblock %}
+{% endif %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-body text-center">
+                {% if role == "Bidders" %}
+                <p class="card-text"><b>Listing ID:</b> {{ item[0]["listing_id"] }}</p>
+                <p class="card-text"><b>Auction Title:</b> {{ item[0]["auction_title"] }}</p>
+                <p class="card-text"><b>Product Name:</b> {{ item[0]["product_name"] }}</p>            
+                <p class="card-text"><b>Category:</b> {{ item[0]["category"] }}</p>
+                <p class="card-text"><b>Description:</b> {{ item[0]["product_description"] }}</p>
+                <p class="card-text"><b>Quantity:</b> {{ item[0]["quantity"] }}</p>
+                <p class="card-text"><b>Seller Email:</b> {{ item[0]["seller_email"] }}</p>
+
+                {% elif role == "Sellers" %}
+                <p class="card-text"><b>Listing ID:</b> {{ item[1] }}</p>
+                <p class="card-text"><b>Auction Title:</b> {{ item[3] }}</p>
+                <p class="card-text"><b>Product Name:</b> {{ item[4] }}</p>            
+                <p class="card-text"><b>Category:</b> {{ item[2] }}</p>
+                <p class="card-text"><b>Description:</b> {{ item[5] }}</p>
+                <p class="card-text"><b>Quantity:</b> {{ item[6] }}</p>
+                <p class="card-text"><b>Status:</b> {{ item[9] }}</p>
+                <p class="card-text"><b>Seller Email:</b> {{ item[0] }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+          <div class="card-body text-center">
+            {% if role == "Bidders" %}
+            <p class="card-text"><b>Reserve Price:</b> {{ item[0]["reserve_price"] }}</p>
+            <p class="card-text"><b>Max Bids:</b> {{ item[0]["max_bids"] }}</p>
+            <p class="card-text"><b>Highest Bid:</b>* Work in Progress *</p>
+            <p class="card-text"><b>Remaining Bids:</b>* Work in Progress *</p>
+            <form action="/item" method="POST">
+                <input type="hidden" name="bid" value="{{ item }}">
+            
+                <!--Submission buttons-->
+                <div>
+                    <label for="bidAmount"><br><b>Enter Bid Amount:</b><input type="text" name="bidAmount" required class="form-control"></label>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bidModal" style="background-color:rgb(3, 183, 66)">Bid</button>
+                </div>
+            
+                <!--Modal for Bid confirmation-->
+                
+                <div class="modal fade" id="bidModal" tabindex="-1" role="dialog" aria-labelledby="bidModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="bidModalLabel">Are You Sure You Want To Bid?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-footer" align="center">
+                                <button type="submit" class="btn btn-primary">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% elif role == "Sellers" %}
+            <p class="card-text"><b>Reserve Price:</b> {{ item[7] }}</p>
+            <p class="card-text"><b>Max Bids:</b> {{ item[8] }}</p>
+            <p class="card-text"><b>Highest Bid:</b>* Work in Progress *</p>
+            <p class="card-text"><b>Remaining Bids:</b>* Work in Progress *</p>
+            <a href="/update_item" class="btn btn-primary">Edit Listing</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

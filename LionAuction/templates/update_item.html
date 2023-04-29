@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+{{ item[3] }} 
+{% endblock %}
+
+{% block menu %}
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/listings">View Your Listings</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/add_listing">Add Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/delete_listing">Delete Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>Welcome, {{ name }}</b></a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/account">Account Settings</a>
+        <a class="dropdown-item" href="#">Contact Support</a>
+        <a class="dropdown-item" href="/">Logout</a>
+    </div>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card-group">
+        <form action="/update_item" method="POST">    
+        <div class="card">
+            <div class="card-body text-center">
+                <label for="lid"><b>Listing ID:</b> {{ item[1] }}</label>
+                <input type="hidden" name="lid" value="{{ item[1] }}">
+
+                <label for="auction_title"><b>Auction Title:</b></label>
+                <input type="text" value="{{ item[3] }}" name="auction_title" required>
+                <br>
+                
+                <label for="name"><b>Product Name:</b></label>
+                <input type="text" value="{{ item[4] }}" name="name" required>
+
+                <label for="category"><b>Category:</b></label>
+                <select name="category" id="category">
+                    {% for cat in categories %}
+                    {% if item[2] == cat %}
+                    <option value="{{ cat }}" selected="selected">{{ cat }}</option>
+                    {% else %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+
+                <br>
+                <label for="description"><b>Description:</b></label>
+                <input type="text" value="{{ item[5] }}" name="description" required>
+                
+                <label for="quantity"><b>Quantity:</b></label>
+                <input type="text" value="{{ item[6] }}" name="quantity" required>
+                <br>
+
+                <label for="status"><b>Status:</b></label>
+                <input type="text" value="{{ item[9] }}" name="status" required>  
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <label for="reserve_price"><b>Reserve Price:</b></label>
+                <input type="text" value="{{ item[7] }}" name="reserve_price" required>
+
+                <label for="max_bids"><b>Max Bids:</b></label>
+                <input type="text" value="{{ item[8] }}" name="max_bids" required>
+                <br>
+                <button type="submit" class="btn btn-primary">Update Listing</button>  
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

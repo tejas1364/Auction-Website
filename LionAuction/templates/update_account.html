@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Account Information {% endblock %}
+
+{% block content %}
+<div class="card-columns"> 
+    <div class="card" style="width:400px">
+        {% if account[3] == "Male" %}
+        <img class="card-img-top" src="{{ url_for('static', filename='../static/images/male.png') }}" alt="Card image" style="width:100%">
+        {% elif account[3] == "Female" %}
+        <img class="card-img-top" src="{{ url_for('static', filename='../static/images/female.png') }}" alt="Card image" style="width:100%">
+        {% endif %}
+        <div class="card-body text-center">
+            <div class="container">
+                <form action="/update_account" method="post">    
+                    <label for="fname"><b>First Name:</b></label>
+                    <input type="text" value="{{ account[1] }}" name="fname" required>
+
+                    <label for="lname"><b>Last Name:</b></label>
+                    <input type="text" value="{{ account[2] }}" name="lname" required>
+                    <br>
+
+                    <label for="gender"><b>Gender:</b></label>
+                    <select name="gender" id="gender">
+                        {% if account[3] == "Male" %}
+                        <option value="Male" selected="selected">Male</option>
+                        <option value="Female">Female</option>
+                        {% else %}
+                        <option value="Male">Male</option>
+                        <option value="Female" selected="selected">Female</option>
+                        {% endif %}
+                    </select>
+                    <br>
+                    
+                    <label for="age"><b>Age:</b></label>
+                    <input type="text" value="{{ account[4] }}" name="age" required>
+                    <br>
+
+                    <label for="major"><b>Major:</b></label>
+                    <input type="text" value="{{ account[5] }}" name="major" required>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="width:400px">
+        <div class="card-body text-center">
+            <h4 class="card-title">Address Information</h4>
+            <p class="card-text"><b>ZipCode: </b>{{ account[7] }}</p>
+            <p class="card-text"><b>Street Number: </b>{{ account[8] }}</p>
+            <p class="card-text"><b>Street Name: </b>{{ account[9] }}</p>
+            <p class="card-text"><b>City: </b>{{ account[10] }}</p>
+            <p class="card-text"><b>State: </b>{{ account[11] }}</p>
+        </div>
+    </div>
+    <div class="card" style="width:400px">
+        <div class="card-body text-center">
+            <h4 class="card-title">Payment Information</h4>
+            <p class="card-text"><b>Card Type: </b>{{ account[13] }}</p>
+            <p class="card-text"><b>Credit Card Number: </b>xxxx-xxxx-xxxx-{{ account[12] }}</p>
+            <p class="card-text"><b>Expire Month: </b>{{ account[14] }}</p>
+            <p class="card-text"><b>Expire Year: </b>{{ account[15] }}</p>
+            <p class="card-text"><b>Security Code: </b>{{ account[16] }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

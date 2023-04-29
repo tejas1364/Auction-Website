@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Local Vendors {% endblock %}
+
+{% block content %}
+<div class="mx-auto">
+    <table id="vendors" class="table table-hover paginated" data-pagination="true" data-page-size="15" width="100%" style="margin: 2em auto;">
+        <thead>
+            <tr>
+                <th>Business Name
+                </th>
+                <th>Customer Service Phone Number
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for business_name, customer_service_phone_number in vendors %}
+            <tr class='clickable-row' data-href='/home'>
+                <td>{{ business_name }}</td>
+                <td>{{ customer_service_phone_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script  src="{{ url_for('static', filename='../static/scripts/vendors.js') }}"></script>
+{% endblock %}

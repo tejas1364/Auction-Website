@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ parent }} {% endblock %}
+
+{% block content %}
+<div class="mx-auto">
+    <table id="listings" class="table table-hover paginated" data-pagination="true" data-page-size="15" width="100%" style="margin: 2em auto;">
+        <thead>
+            <tr>
+                <th>Listing ID</th>
+                <th>Product Name</th>
+                <th>Auction Title</th>
+                <th>Reserve Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listing in result %}
+            
+            <tr class='clickable-row'>
+                <td class="nr">{{ listing["listing_id"] }}</td>
+                <td>{{ listing["product_name"] }}</td>
+                <td>{{ listing["auction_title"] }}</td>
+                <td>{{ listing["reserve_price"] }}</td>
+            </tr>            
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script  src="{{ url_for('static', filename='../static/scripts/listings.js') }}"></script>
+{% endblock %}

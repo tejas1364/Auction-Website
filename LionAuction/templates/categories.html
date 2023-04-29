@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Categories {% endblock %}
+
+{% block content %}
+
+{% for category_name in result %}
+<form action="/categories" method="POST">
+  <input type="hidden" name="input" value="{{ category_name }}">
+  <button type="submit" name="action" value="items">{{ category_name }}</button>
+  <button type="submit" name="action" value="category">></button>
+</form>
+{% endfor %}
+
+
+{% endblock %}

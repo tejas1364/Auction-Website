@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %} Account Information {% endblock %}
+
+{% if role == "Sellers" %}
+{% block menu %}
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/listings">View Your Listings</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/add_listing">Add Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/delete_listing">Delete Listing</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>Welcome, {{ name }}</b></a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/account">Account Settings</a>
+        <a class="dropdown-item" href="#">Contact Support</a>
+        <a class="dropdown-item" href="/">Logout</a>
+    </div>
+</li>
+{% endblock %}
+{% endif %}
+
+
+{% block content %}
+
+{% if role == "Bidders" %}
+<div class="card-columns">
+    {% if account[3] == "Male" %}
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="{{ url_for('static', filename='../static/images/male.png') }}" alt="Card image" style="width:100%">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{ account[1] }} {{ account[2] }}</h4>
+            <p class="card-text"><b>Gender: </b>{{ account[3] }}</p>
+            <p class="card-text"><b>Age: </b>{{ account[4] }}</p>
+            <p class="card-text"><b>Major: </b>{{ account[5] }}</p>
+            <p class="card-text"><b>Email: </b>{{ account[0] }}</p>
+            <a href="/update_account" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+    {% endif %}
+    {% if account[3] == "Female" %}
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="{{ url_for('static', filename='../static/images/female.png') }}" alt="Card image" style="width:100%">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{ account[1] }} {{ account[2] }}</h4>
+            <p class="card-text"><b>Gender: </b>{{ account[3] }}</p>
+            <p class="card-text"><b>Age: </b>{{ account[4] }}</p>
+            <p class="card-text"><b>Major: </b>{{ account[5] }}</p>
+            <p class="card-text"><b>Email: </b>{{ account[0] }}</p>
+            <a href="/update_account" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+    {% endif %}
+    <!--email, first_name, last_name, gender, age, major, address_id, zipcode, street_num, street_name, city, state, credit_card_num, card_type, expire_month, expire_year, security_code-->
+    <div class="card" style="width:400px">
+        <div class="card-body text-center">
+            <h4 class="card-title">Address Information</h4>
+            <p class="card-text"><b>ZipCode: </b>{{ account[7] }}</p>
+            <p class="card-text"><b>Street Number: </b>{{ account[8] }}</p>
+            <p class="card-text"><b>Street Name: </b>{{ account[9] }}</p>
+            <p class="card-text"><b>City: </b>{{ account[10] }}</p>
+            <p class="card-text"><b>State: </b>{{ account[11] }}</p>
+        </div>
+    </div>
+    <div class="card" style="width:400px">
+        <div class="card-body text-center">
+            <h4 class="card-title">Payment Information</h4>
+            <p class="card-text"><b>Card Type: </b>{{ account[13] }}</p>
+            <p class="card-text"><b>Credit Card Number: </b>xxxx-xxxx-xxxx-{{ account[12] }}</p>
+            <p class="card-text"><b>Expire Month: </b>{{ account[14] }}</p>
+            <p class="card-text"><b>Expire Year: </b>{{ account[15] }}</p>
+            <p class="card-text"><b>Security Code: </b>{{ account[16] }}</p>
+        </div>
+    </div>
+</div>
+{% elif role == "Sellers" %}
+<div class="card-columns">
+    <div class="card" style="width:400px">
+        <img class="card-img-top" src="{{ url_for('static', filename='../static/images/seller.png') }}" alt="Card image" style="width:100%">
+        <div class="card-body text-center">
+            {% if local_vendor == 0 %}
+            <p class="card-text"><b>Email: </b>{{ account[0] }}</p>
+            <p class="card-text"><b>Bank Routing Number: </b>{{ account[1] }}</p>
+            <p class="card-text"><b>Bank Account Number: </b>{{ account[2] }}</p>
+            <p class="card-text"><b>Balance: </b>{{ account[3] }}</p>
+            {% else %}
+            <p class="card-text"><b>Email: </b>{{ account[0] }}</p>
+            <p class="card-text"><b>Business Name: </b>{{ account[4] }}</p>
+            <p class="card-text"><b>Customer Service Phone Number: </b>{{ account[5] }}</p>
+            <p class="card-text"><b>Bank Routing Number: </b>{{ account[1] }}</p>
+            <p class="card-text"><b>Bank Account Number: </b>{{ account[2] }}</p>
+            <p class="card-text"><b>Balance: </b>{{ account[3] }}</p>
+            <p class="card-text"><b>ZipCode: </b>{{ account[6] }}</p>
+            <p class="card-text"><b>Street Number: </b>{{ account[7] }}</p>
+            <p class="card-text"><b>Street Name: </b>{{ account[8] }}</p>
+            <p class="card-text"><b>City: </b>{{ account[9] }}</p>
+            <p class="card-text"><b>State: </b>{{ account[10] }}</p>
+            {% endif %}
+            <a href="#" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

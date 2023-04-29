@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Bidder Home {% endblock %}
+
+<!--ADD SWITCHING ROLES AFTER LOGIN FUNCTIONALITY-->
+
+{% block content %}
+<div class="container">
+    <div class="card-columns">
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="/categories" class="card-link" style="color:aliceblue;">Browse Categories</a>
+        </div>
+      </div>
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="/local_vendors" class="card-link stretched-link" style="color:aliceblue;">Find Local Vendors</a>
+        </div>
+      </div>
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="#" class="card-link stretched-link" style="color:aliceblue;">Current Bids</a> <!--Not Done-->
+        </div>
+      </div>
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="#" class="card-link stretched-link" style="color:aliceblue;">Previous Winnings</a> <!--Not Done-->
+        </div>
+      </div>  
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="#" class="card-link stretched-link" style="color:aliceblue;">Past Bids</a> <!--Not Done-->
+        </div>
+      </div>
+      <div class="card bg-primary">
+        <div class="card-body text-center">
+          <a href="/account" class="card-link stretched-link" style="color:aliceblue;">Account Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
