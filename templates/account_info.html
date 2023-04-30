@@ -2,8 +2,8 @@
 
 {% block title %} Account Information {% endblock %}
 
-{% if role == "Sellers" %}
 {% block menu %}
+{% if role == "Sellers" %}
 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
     <a class="nav-link" href="/listings">View Your Listings</a>
 </li>
@@ -21,8 +21,91 @@
         <a class="dropdown-item" href="/">Logout</a>
     </div>
 </li>
-{% endblock %}
+{% else %}
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+    <ul class="dropdown-menu dropdown-submenu">
+        <li>
+            <a class="dropdown-item" href="#">All Listings</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="/categories">Categories &raquo; </a>
+            <ul class="dropdown-menu dropdown-submenu">
+                {% for root in categories[0][1] %}
+                <li>
+                    <form id="{{ root }}" action="/categories" method="POST">
+                        <input type="hidden" name="input" value="{{ root }}">
+                        <input type="hidden" name="action" value="items">
+                    </form>
+                    <a class="dropdown-item" onclick="document.getElementById('{{ root }}').submit();">{{ root }}</a>
+                    {% for sub in categories %}
+                    {% if sub[0] == root %}
+                    <ul class="dropdown-menu dropdown-submenu">
+                    {% for s in sub[1] %}
+                        <li>
+                            <form id="{{ s }}" action="/categories" method="POST">
+                                <input type="hidden" name="input" value="{{ s }}">
+                                <input type="hidden" name="action" value="items">
+                            </form>
+                            <a class="dropdown-item" onclick="document.getElementById('{{ s }}').submit();">{{ s }}</a>			
+                                {% for sub2 in categories %}
+                                {% if sub2[0] == s %}
+                                <ul class="dropdown-menu dropdown-submenu">
+                                {% for s2 in sub2[1] %}
+                                    <li>
+                                        <form id="{{ s2 }}" action="/categories" method="POST">
+                                            <input type="hidden" name="input" value="{{ s2 }}">
+                                            <input type="hidden" name="action" value="items">
+                                        </form>
+                                        <a class="dropdown-item" onclick="document.getElementById('{{ s2 }}').submit();">{{ s2 }}</a>		
+                                        {% for sub3 in categories %}
+                                        {% if sub3[0] == s2 %}
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                        {% for s3 in sub3[1] %}
+                                            <li>
+                                                <form id="{{ s3 }}" action="/categories" method="POST">
+                                                    <input type="hidden" name="input" value="{{ s3 }}">
+                                                    <input type="hidden" name="action" value="items">
+                                                </form>
+                                                <a class="dropdown-item" onclick="document.getElementById('{{ s3 }}').submit();">{{ s3 }}</a>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                        {% endfor %}		
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                                {% endif %}
+                                {% endfor %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</li>
+
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link" href="/local_vendors">Find Local Businesses</a>
+</li>
+<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>Welcome, {{ name }}</b></a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="/my_bids">My Bids</a>
+        <a class="dropdown-item" href="#">Previous Winnings</a>
+        <a class="dropdown-item" href="/account">Account Settings</a>
+        <a class="dropdown-item" href="#">Contact Support</a>
+        <a class="dropdown-item" href="/">Logout</a>
+    </div>
+</li>
 {% endif %}
+{% endblock %}
+
 
 
 {% block content %}
@@ -41,10 +124,20 @@
             <a href="/update_account" class="btn btn-primary">Edit Profile</a>
         </div>
     </div>
-    {% endif %}
-    {% if account[3] == "Female" %}
+    {% elif account[3] == "Female" %}
     <div class="card" style="width:400px">
         <img class="card-img-top" src="{{ url_for('static', filename='../static/images/female.png') }}" alt="Card image" style="width:100%">
+        <div class="card-body text-center">
+            <h4 class="card-title">{{ account[1] }} {{ account[2] }}</h4>
+            <p class="card-text"><b>Gender: </b>{{ account[3] }}</p>
+            <p class="card-text"><b>Age: </b>{{ account[4] }}</p>
+            <p class="card-text"><b>Major: </b>{{ account[5] }}</p>
+            <p class="card-text"><b>Email: </b>{{ account[0] }}</p>
+            <a href="/update_account" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card" style="width:400px">
         <div class="card-body text-center">
             <h4 class="card-title">{{ account[1] }} {{ account[2] }}</h4>
             <p class="card-text"><b>Gender: </b>{{ account[3] }}</p>

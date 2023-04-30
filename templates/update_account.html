@@ -21,15 +21,7 @@
                     <br>
 
                     <label for="gender"><b>Gender:</b></label>
-                    <select name="gender" id="gender">
-                        {% if account[3] == "Male" %}
-                        <option value="Male" selected="selected">Male</option>
-                        <option value="Female">Female</option>
-                        {% else %}
-                        <option value="Male">Male</option>
-                        <option value="Female" selected="selected">Female</option>
-                        {% endif %}
-                    </select>
+                    <input type="text" value="{{ account[3] }}" name="gender" required>
                     <br>
                     
                     <label for="age"><b>Age:</b></label>

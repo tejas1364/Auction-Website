@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} All My Bids {% endblock %}
+
+{% block content %}
+{% if bids == [] %}
+<div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>No Bids Available</strong>
+</div>
+{% endif %}
+<table id="all_bids" class="table table-hover paginated" data-pagination="true" data-page-size="15" width="100%" style="margin: 2em auto;">
+    <caption>All My Bids</caption>
+    <thead>
+        <tr>
+            <th>Bid ID</th>
+            <th>Auction Title</th>
+            <th>Product Name</th>
+            <th>Bid Price</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bid in bids %}
+        <tr>
+        <!--<tr class='clickable-row'>-->
+            <td class="nr">{{ bid[0] }}</td>
+            <td>{{ bid[2] }}</td>
+            <td>{{ bid[3] }}</td>
+            <td>{{ bid[4] }}</td>
+            <td>{{ bid[5] }}</td>
+        </tr>            
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script  src="{{ url_for('static', filename='../static/scripts/all_bids.js') }}"></script>
+{% endblock %}

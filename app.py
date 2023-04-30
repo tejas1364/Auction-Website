@@ -63,7 +63,7 @@ def login():
                 all_categories = categories
                 user_email = username
                 role = user
-                #print(all_categories)
+                print(all_categories)
                 #print(all_categories[0][1])
                 return render_template('bidder_home.html', name=get_name(username), categories=all_categories)
             elif user == "Sellers":
@@ -190,6 +190,7 @@ def account_info():
             card_length = len(account[12])
             account[12] = account[12][card_length - 4:]
             print(account)
+            print(role)
             return render_template('account_info.html', name=user, categories=all_categories, account=account, role=role)
         elif role == "Sellers":
             if local_vendor == 0: #Seller but not a vendor
@@ -239,7 +240,7 @@ def update_account_info():
             card_length = len(account[12])
             account[12] = account[12][card_length - 4:]
             print(account)
-            return render_template('account_info.html', name=user, categories=all_categories, account=account)
+            return render_template('account_info.html', name=user, categories=all_categories, account=account, role=role, local_vendor=local_vendor)
 
 
 
@@ -383,7 +384,7 @@ def delete_listing(data):
         query = "SELECT * FROM Auction_Listings WHERE seller_email = '{}';"
         all_listings = sqlite_data_to_list_of_dicts(query.format(user_email))
         return render_template('delete_listing.html', name=user, item=item, role=role, listings=all_listings, message="Reason for deleting listing:")
-    
+
 
 
 @app.route('/item/<data>', methods=['POST', 'GET'])
@@ -401,6 +402,27 @@ def item(data):
     else:
         bid_amount = request.form("bidAmount")
         print(bid_amount)
+
+
+
+'''
+Function Name: all_bids()
+Parameters: None
+Purpose: Navigates Bidder to view all their bids
+'''
+@app.route('/my_bids', methods=['POST', 'GET'])
+def all_bids():
+    query = "SELECT bid_id, Bids.listing_id, auction_title, product_name, bid_price, status FROM Bids, Auction_Listings WHERE bidder_email = '{}' AND Bids.listing_id = Auction_Listings.listing_id;"
+    all_bids = sqlite_data_to_list_of_dicts(query.format(user_email))
+    print(all_bids)
+    bids = []
+    for bid in all_bids:
+        bids.append(list(bid.values()))
+    return render_template('all_bids.html', name=user, bids=bids, categories=all_categories, role=role)
+
+
+
+
 
 
 

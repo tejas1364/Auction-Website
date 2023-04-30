@@ -40,25 +40,60 @@
 										<li>
 											<a class="dropdown-item" href="/categories">Categories &raquo; </a>
 											<ul class="dropdown-menu dropdown-submenu">
-												{% for root in categories %}
+												{% for root in categories[0][1] %}
 												<li>
-													<a class="dropdown-item" href="#">{{ root[1] }}</a>
+													<form id="{{ root }}" action="/categories" method="POST">
+														<input type="hidden" name="input" value="{{ root }}">
+														<input type="hidden" name="action" value="items">
+													</form>
+													<a class="dropdown-item" onclick="document.getElementById('{{ root }}').submit();">{{ root }}</a>
+													{% for sub in categories %}
+													{% if sub[0] == root %}
+													<ul class="dropdown-menu dropdown-submenu">
+													{% for s in sub[1] %}
+														<li>
+															<form id="{{ s }}" action="/categories" method="POST">
+																<input type="hidden" name="input" value="{{ s }}">
+																<input type="hidden" name="action" value="items">
+															</form>
+															<a class="dropdown-item" onclick="document.getElementById('{{ s }}').submit();">{{ s }}</a>			
+																{% for sub2 in categories %}
+																{% if sub2[0] == s %}
+																<ul class="dropdown-menu dropdown-submenu">
+																{% for s2 in sub2[1] %}
+																	<li>
+																		<form id="{{ s2 }}" action="/categories" method="POST">
+																			<input type="hidden" name="input" value="{{ s2 }}">
+																			<input type="hidden" name="action" value="items">
+																		</form>
+																		<a class="dropdown-item" onclick="document.getElementById('{{ s2 }}').submit();">{{ s2 }}</a>		
+																		{% for sub3 in categories %}
+																		{% if sub3[0] == s2 %}
+																		<ul class="dropdown-menu dropdown-submenu">
+																		{% for s3 in sub3[1] %}
+																			<li>
+																				<form id="{{ s3 }}" action="/categories" method="POST">
+																					<input type="hidden" name="input" value="{{ s3 }}">
+																					<input type="hidden" name="action" value="items">
+																				</form>
+																				<a class="dropdown-item" onclick="document.getElementById('{{ s3 }}').submit();">{{ s3 }}</a>
+																			</li>
+																		{% endfor %}
+																		</ul>
+																		{% endif %}
+																		{% endfor %}		
+																	</li>
+																{% endfor %}
+																</ul>
+																{% endif %}
+																{% endfor %}
+														</li>
+													{% endfor %}
+													</ul>
+													{% endif %}
+													{% endfor %}
 												</li>
 												{% endfor %}
-												<li>
-													<a class="dropdown-item" href="#">Multi level 1</a>
-													<ul class="dropdown-menu dropdown-submenu">
-														<li>
-															<a class="dropdown-item" href="#">a</a>
-														</li>
-														<li>
-															<a class="dropdown-item" href="#">b</a>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<a class="dropdown-item" href="#">Multi level 2</a>
-												</li>
 											</ul>
 										</li>
 									</ul>
@@ -70,7 +105,7 @@
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>Welcome, {{ name }}</b></a>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">My Bids</a>
+										<a class="dropdown-item" href="/my_bids">My Bids</a>
 										<a class="dropdown-item" href="#">Previous Winnings</a>
 										<a class="dropdown-item" href="/account">Account Settings</a>
 										<a class="dropdown-item" href="#">Contact Support</a>
