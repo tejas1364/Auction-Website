@@ -160,7 +160,9 @@ Purpose: Displays seller's listings when seller is logged in
 @app.route('/listings', methods=['POST', 'GET'])
 def listings():
     if role == "Bidders":
-        return render_template('listings.html', name=user, categories=all_categories)
+        query = "SELECT * FROM Auction_Listings WHERE status = 1;"
+        result = sqlite_data_to_list_of_dicts(query)
+        return render_template('listings.html', name=user, categories=all_categories, result=result, parent="All Listings")
     elif role == "Sellers":
         query = "SELECT * FROM Auction_Listings WHERE seller_email = '{}' AND status = 1;"
         active = sqlite_data_to_list_of_dicts(query.format(user))
