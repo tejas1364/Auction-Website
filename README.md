@@ -1,6 +1,6 @@
 # LionAuction Project
 ***
-This project was done individually by Tejas Chadha Marimuthu for CMPSC 431W.
+This project was done individually by Tejas Chadha Marimuthu
 
 ## Table of Contents
 1. [General Info](#general-info)
